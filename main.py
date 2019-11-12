@@ -1,8 +1,14 @@
 from sklearn import datasets
+from knn import KMeans
 
 iris = datasets.load_iris()
-X = iris.data
-y = iris.target
+input_dataset = iris.data
+target = iris.target
 
-print(X)
-print(y)
+number_of_clusters = 3
+k_means = KMeans(number_of_clusters)
+knn_result = k_means.fit(input_dataset)
+print(knn_result)
+
+eval_matrix = k_means.evaluation_matrix(target)
+print(eval_matrix)

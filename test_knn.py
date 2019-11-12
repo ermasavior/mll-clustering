@@ -1,3 +1,3 @@
 import unittest
 
-class TestKNN(unittest.TestCase):
+class TestKMeans(unittest.TestCase):
