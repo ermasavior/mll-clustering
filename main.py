@@ -12,6 +12,6 @@ k_means = KMeans(n_clusters)
 knn_result = k_means.fit(input_dataset)
 print(knn_result)
 
-confusion_matrix = cluster_confusion_matrix(n_clusters, target, knn_result)
+confusion_matrix = cluster_confusion_matrix(n_clusters, knn_result, target)
 print("Confusion Matrix:")
 print(confusion_matrix)
