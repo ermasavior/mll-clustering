@@ -16,14 +16,14 @@ Clustering algorithms implementations (K-Means, Agglomerative, and DBSCAN).
   knn.KMeans(n_clusters)
   ```
   **Parameters**
-  - n_clusters: int. _Number of clusters (predefined)._
+  - **n_clusters:** int. _Number of clusters (predefined)._
 
   **Methods**
   - `fit(self, input_dataset)`: Compute k-means clustering.
     
     - **Parameters**
       
-      - **input_dataset:** array, shape = , shape = [n_rows, n_features]. _List of input features._
+      - **input_dataset:** array, shape = [n_rows, n_features]. _List of input features._
     
     - **Returns**
 
@@ -47,9 +47,9 @@ Clustering algorithms implementations (K-Means, Agglomerative, and DBSCAN).
 
 ## How to Run
 
-Experiment is conducted using [iris dataset](https://scikit-learn.org/stable/modules/generated/sklearn.datasets.load_iris.html#sklearn.datasets.load_iris).
+Sample usage is demonstrated in `main.py` using [iris dataset](https://scikit-learn.org/stable/modules/generated/sklearn.datasets.load_iris.html#sklearn.datasets.load_iris).
 
-1. Run `make`.
-2. Program will output the clustering result of iris dataset and the confusion matrix.
+1. Run `python main.py`.
+2. Program will output the clustering result of iris dataset with the confusion matrix.
 
 ## Authors
