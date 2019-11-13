@@ -3,49 +3,43 @@ import numpy as np
 import random
 
 class KMeans:
-    def __init__(self, n_clusters = 3):
+    def __init__(self, n_clusters):
         self.n_clusters = n_clusters
+    
+    def __init_centroids(self, input_dataset):
+        random_centroids = random.sample(list(input_dataset), self.n_clusters)
+        return np.array(random_centroids)
 
     def fit(self, input_dataset):
-        self.input_dataset = input_dataset
-        centroids = np.array(self.__init_centroid())
+        self.__centroids = self.__init_centroids(input_dataset)
 
         while True:
-            self.knn_result = []
+            knn_result = []
             new_clusters = [[] for i in range(self.n_clusters)]
 
-            for data in self.input_dataset:
-                cluster = self.__clusterize_data(data, centroids)
+            for data in input_dataset:
+                cluster = self.__clusterize_data(data)
                 new_clusters[cluster].append(data)
-                self.knn_result.append(cluster)
+                knn_result.append(cluster)
 
-            new_centroids = []
-            for cluster in new_clusters:
-                new_centroid = np.mean(cluster, axis = 0)
-                new_centroids.append(new_centroid)
-            new_centroids = np.array(new_centroids)
-
-            if (new_centroids == centroids).all():
+            new_centroids = self.__assign_new_centroids(new_clusters)
+            if (new_centroids == self.__centroids).all():
                 break
             else:
-                centroids = new_centroids
+                self.__centroids = new_centroids
 
-        return self.knn_result
-    
-    def __init_centroid(self):
-        return random.sample(list(self.input_dataset), self.n_clusters)
+        return knn_result
 
-    def __clusterize_data(self, data, centroids):
+    def __clusterize_data(self, data):
         distances = []
-        for centroid in centroids:
+        for centroid in self.__centroids:
             dist = distance.euclidean(data, centroid)
             distances.append(dist)
         return np.argmin(distances)
     
-    def evaluation_matrix(self, actual_clusters):
-        evaluation_matrix = [np.zeros(self.n_clusters) for _ in range(self.n_clusters)]
-        for idx in range(len(self.knn_result)):
-            actual_cluster = actual_clusters[idx]
-            predicted_cluster = self.knn_result[idx]
-            evaluation_matrix[predicted_cluster][actual_cluster] += 1
-        return evaluation_matrix
+    def __assign_new_centroids(self, new_clusters):
+        new_centroids = []
+        for cluster in new_clusters:
+            centroid = np.mean(cluster, axis = 0)
+            new_centroids.append(centroid)
+        return np.array(new_centroids)
