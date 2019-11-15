@@ -14,14 +14,7 @@ class KMeans:
         self.__centroids = self.__init_centroids(input_dataset)
 
         while True:
-            knn_result = []
-            new_clusters = [[] for i in range(self.n_clusters)]
-
-            for data in input_dataset:
-                cluster = self.__clusterize_data(data)
-                new_clusters[cluster].append(data)
-                knn_result.append(cluster)
-
+            new_clusters, knn_result = self.__assign_new_clusters(input_dataset)
             new_centroids = self.__assign_new_centroids(new_clusters)
             if (new_centroids == self.__centroids).all():
                 break
@@ -30,13 +23,22 @@ class KMeans:
 
         return knn_result
 
+    def __assign_new_clusters(self, input_dataset):
+        knn_result = []
+        new_clusters = [[] for i in range(self.n_clusters)]
+        for data in input_dataset:
+            cluster = self.__clusterize_data(data)
+            new_clusters[cluster].append(data)
+            knn_result.append(cluster)
+        return new_clusters, knn_result
+
     def __clusterize_data(self, data):
         distances = []
         for centroid in self.__centroids:
             dist = distance.euclidean(data, centroid)
             distances.append(dist)
         return np.argmin(distances)
-    
+
     def __assign_new_centroids(self, new_clusters):
         new_centroids = []
         for cluster in new_clusters:
