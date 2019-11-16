@@ -24,7 +24,13 @@ Clustering algorithms implementations (K-Means, Agglomerative, and DBSCAN).
     - **Parameters**
       
       - **input_dataset:** array, shape = [n_rows, n_features]. _List of input features._
+
+  - `predict(self, input_dataset)`: Clusterize input with pretrained model.
     
+    - **Parameters**
+      
+      - **input_dataset:** array, shape = [n_rows, n_features]. _List of input features._
+
     - **Returns**
 
       - **predicted_clusters:** array, shape = [n_rows]. _Clustering results._

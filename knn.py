@@ -6,31 +6,29 @@ class KMeans:
     def __init__(self, n_clusters):
         self.n_clusters = n_clusters
     
-    def __init_centroids(self, input_dataset):
-        random_centroids = random.sample(list(input_dataset), self.n_clusters)
-        return np.array(random_centroids)
+    def __init_centroids(self, dataset):
+        random_centroids = random.sample(list(dataset), self.n_clusters)
+        self.__centroids = np.array(random_centroids)
 
-    def fit(self, input_dataset):
-        self.__centroids = self.__init_centroids(input_dataset)
+    def fit(self, dataset):
+        self.__init_centroids(dataset)
 
         while True:
-            new_clusters, knn_result = self.__assign_new_clusters(input_dataset)
-            new_centroids = self.__assign_new_centroids(new_clusters)
+            data_clusters = self.__assign_data_clusters(dataset)
+            new_centroids = self.__assign_new_centroids(data_clusters)
             if (new_centroids == self.__centroids).all():
                 break
             else:
                 self.__centroids = new_centroids
 
-        return knn_result
+        return self
 
-    def __assign_new_clusters(self, input_dataset):
-        knn_result = []
-        new_clusters = [[] for i in range(self.n_clusters)]
-        for data in input_dataset:
+    def __assign_data_clusters(self, dataset):
+        data_clusters = [[] for i in range(self.n_clusters)]
+        for data in dataset:
             cluster = self.__clusterize_data(data)
-            new_clusters[cluster].append(data)
-            knn_result.append(cluster)
-        return new_clusters, knn_result
+            data_clusters[cluster].append(data)
+        return data_clusters
 
     def __clusterize_data(self, data):
         distances = []
@@ -39,9 +37,16 @@ class KMeans:
             distances.append(dist)
         return np.argmin(distances)
 
-    def __assign_new_centroids(self, new_clusters):
+    def __assign_new_centroids(self, data_clusters):
         new_centroids = []
-        for cluster in new_clusters:
-            centroid = np.mean(cluster, axis = 0)
+        for data_cluster in data_clusters:
+            centroid = np.mean(data_cluster, axis = 0)
             new_centroids.append(centroid)
         return np.array(new_centroids)
+
+    def predict(self, dataset):
+        clusters = []
+        for data in dataset:
+            cluster = self.__clusterize_data(data)
+            clusters.append(cluster)
+        return np.array(clusters)
