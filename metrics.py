@@ -20,4 +20,4 @@ def cluster_accuracy_score(predicted_clusters, actual_labels, confusion_matrix):
         transformed_clusters.append(aligned_cluster)
     transformed_clusters = np.array(transformed_clusters)
 
-    return accuracy_score(transformed_clusters, actual_labels)
+    return accuracy_score(actual_labels, transformed_clusters)

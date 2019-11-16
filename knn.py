@@ -5,6 +5,7 @@ import random
 class KMeans:
     def __init__(self, n_clusters):
         self.n_clusters = n_clusters
+        self.__centroids = None
     
     def __init_centroids(self, dataset):
         random_centroids = random.sample(list(dataset), self.n_clusters)
@@ -45,6 +46,9 @@ class KMeans:
         return np.array(new_centroids)
 
     def predict(self, dataset):
+        if self.__centroids is None:
+            raise Exception("This KMeans instance is not fitted yet. Call 'fit' with appropriate arguments before using this method.")
+
         clusters = []
         for data in dataset:
             cluster = self.__clusterize_data(data)
