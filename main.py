@@ -1,17 +1,46 @@
 from sklearn import datasets
-from knn import KMeans
-from metrics import cluster_confusion_matrix
+from sklearn.model_selection import train_test_split
+
+import sklearn.cluster as sklearn_cluster
+import knn
+import metrics
 
 iris = datasets.load_iris()
-input_dataset = iris.data
-target = iris.target
+X = iris.data
+y = iris.target
 n_clusters = len(iris.target_names)
 
-print("KNN Clustering Result")
-k_means = KMeans(n_clusters)
-knn_result = k_means.fit(input_dataset)
-print(knn_result)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.33)
+print("Total train dataset: ", len(y_train))
+print("Total test dataset: ", len(y_test))
 
-confusion_matrix = cluster_confusion_matrix(n_clusters, knn_result, target)
+print("\n===========================\n")
+
+print("KNN Clustering from Scratch")
+kmeans = knn.KMeans(n_clusters).fit(X_train)
+y_predict = kmeans.predict(X_test)
+
+confusion_matrix = metrics.cluster_confusion_matrix(n_clusters, y_predict, y_test)
 print("Confusion Matrix:")
 print(confusion_matrix)
+
+print("Accuracy:")
+accuracy_score = metrics.cluster_accuracy_score(y_predict, y_test, confusion_matrix)
+print(">", accuracy_score)
+
+print()
+
+print("KNN Clustering SKLearn")
+skl_kmeans = sklearn_cluster.KMeans(n_clusters).fit(X_train)
+y_predict = skl_kmeans.predict(X_test)
+
+confusion_matrix = metrics.cluster_confusion_matrix(n_clusters, y_predict, y_test)
+print("Confusion Matrix:")
+print(confusion_matrix)
+
+print("Accuracy:")
+accuracy_score = metrics.cluster_accuracy_score(y_predict, y_test, confusion_matrix)
+print(">", accuracy_score)
+
+print("\n===========================\n")
+

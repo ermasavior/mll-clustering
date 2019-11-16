@@ -36,20 +36,41 @@ Clustering algorithms implementations (K-Means, Agglomerative, and DBSCAN).
       - **predicted_clusters:** array, shape = [n_rows]. _Clustering results._
 
 
-### Metrics: Confusion Matrix
+### Metrics
+### Confusion Matrix
   Generate confusion matrix to evaluate the accuracy of a clustering.
 
+  Row index: predicted clusters
+  Column index: actual labels
+
   ``` 
-  metrics.cluster_confusion_matrix(n_clusters, predicted_clusters, actual_clusters)
+  metrics.cluster_confusion_matrix(n_clusters, predicted_clusters, actual_labels)
   ```
 
   **Parameters**
   - **n_clusters:** int. _Number of clusters (predefined)._
   - **predicted_clusters:** array, shape = [n_rows]. _Clustering result._
-  - **actual_clusters:** array, shape = [n_rows]. _Ground truth (correct) target values._
+  - **actual_labels:** array, shape = [n_rows]. _Ground truth (correct) target values._
 
   **Returns**
   - **confusion_matrix:** array, shape = [n_clusters , n_clusters]. _Confusion matrix_
+
+### Accuracy Score
+  Count accuracy score of clustering result.
+  
+  ** Cluster results are transformed to align with actual labels.
+
+  ``` 
+  metrics.cluster_accuracy_score(predicted_clusters, actual_labels, confusion_matrix)
+  ```
+
+  **Parameters**
+  - **predicted_clusters:** array, shape = [n_rows]. _Clustering result._
+  - **actual_labels:** array, shape = [n_rows]. _Ground truth (correct) target values._
+  - **confusion_matrix:** array, shape = [n_clusters , n_clusters]. _Confusion matrix_
+
+  **Returns**
+  - **accuracy_score:** int. _Accuracy score of clustering result_
 
 ## How to Run
 
