@@ -18,8 +18,8 @@ print("Total test dataset: ", len(y_test))
 print("\n===========================\n")
 
 print("KNN Clustering from Scratch")
-kmeans = knn.KMeans(n_clusters).fit(X_train)
-y_predict = kmeans.predict(X_test)
+print("> With train and test split")
+y_predict = knn.KMeans(n_clusters).fit(X_train).predict(X_test)
 
 print("Confusion Matrix:")
 conf_matrix = confusion_matrix(y_test, y_predict)
@@ -27,21 +27,45 @@ print(conf_matrix)
 
 print("Accuracy:")
 accuracy_score = metrics.cluster_accuracy_score(y_predict, y_test, conf_matrix)
-print(">", accuracy_score)
+print("Accuracy score:", accuracy_score)
 
 print()
 
+print("> Without train and test split")
+y_predict = knn.KMeans(n_clusters).fit(X).predict(X)
+
+print("Confusion Matrix:")
+conf_matrix = confusion_matrix(y, y_predict)
+print(conf_matrix)
+
+print("Accuracy:")
+accuracy_score = metrics.cluster_accuracy_score(y_predict, y, conf_matrix)
+print("Accuracy score:", accuracy_score)
+
+print("\n===========================\n")
+
 print("KNN Clustering SKLearn")
-skl_kmeans = sklearn_cluster.KMeans(n_clusters).fit(X_train)
-y_predict = skl_kmeans.predict(X_test)
+print("> With train and test split")
+y_predict = sklearn_cluster.KMeans(n_clusters).fit(X_train).predict(X_test)
 
 print("Confusion Matrix:")
 conf_matrix = confusion_matrix(y_test, y_predict)
 print(conf_matrix)
 
-print("Accuracy:")
 accuracy_score = metrics.cluster_accuracy_score(y_predict, y_test, conf_matrix)
-print(">", accuracy_score)
+print("Accuracy score:", accuracy_score)
+
+print()
+
+print("> Without train and test split")
+y_predict = sklearn_cluster.KMeans(n_clusters).fit(X).predict(X)
+
+print("Confusion Matrix:")
+conf_matrix = confusion_matrix(y, y_predict)
+print(conf_matrix)
+
+print("Accuracy:")
+accuracy_score = metrics.cluster_accuracy_score(y_predict, y, conf_matrix)
+print("Accuracy score:", accuracy_score)
 
 print("\n===========================\n")
-
