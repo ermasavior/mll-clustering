@@ -9,4 +9,4 @@ agglomerative:
 	python agglomerative/main.py
 
 dbscan:
-	python dbscan/dbscan.py
+	python dbscan/main.py
