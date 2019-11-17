@@ -11,7 +11,7 @@ X = iris.data
 y = iris.target
 n_clusters = len(iris.target_names)
 
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.33)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.1)
 print("Total train dataset: ", len(y_train))
 print("Total test dataset: ", len(y_test))
 
@@ -25,7 +25,6 @@ print("Confusion Matrix:")
 conf_matrix = confusion_matrix(y_test, y_predict)
 print(conf_matrix)
 
-print("Accuracy:")
 accuracy_score = metrics.cluster_accuracy_score(y_predict, y_test, conf_matrix)
 print("Accuracy score:", accuracy_score)
 
@@ -38,7 +37,6 @@ print("Confusion Matrix:")
 conf_matrix = confusion_matrix(y, y_predict)
 print(conf_matrix)
 
-print("Accuracy:")
 accuracy_score = metrics.cluster_accuracy_score(y_predict, y, conf_matrix)
 print("Accuracy score:", accuracy_score)
 
@@ -64,7 +62,6 @@ print("Confusion Matrix:")
 conf_matrix = confusion_matrix(y, y_predict)
 print(conf_matrix)
 
-print("Accuracy:")
 accuracy_score = metrics.cluster_accuracy_score(y_predict, y, conf_matrix)
 print("Accuracy score:", accuracy_score)
 

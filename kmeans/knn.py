@@ -22,7 +22,7 @@ class KMeans:
             else:
                 self.__centroids = new_centroids
 
-        return self
+            return self
 
     def __assign_data_clusters(self, dataset):
         data_clusters = [[] for i in range(self.n_clusters)]
